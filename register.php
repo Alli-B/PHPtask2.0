@@ -1,9 +1,17 @@
 <?php
 
-session_start();
-
 include_once('lib/header.php');
+
+if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
+    header("Location: dashboard.php");
+}
+
+
+
 ?>
+
+<h2>Register</h2>
+
     <p><strong>Welcome, Please Register</strong></p>
     <p>All Fields are required</p>
 

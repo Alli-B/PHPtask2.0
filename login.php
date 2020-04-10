@@ -1,6 +1,11 @@
-<?php session_start();
+<?php 
 
 include_once('lib/header.php');
+
+if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
+    header("Location: dashboard.php");
+}
+
 
 ?>
 

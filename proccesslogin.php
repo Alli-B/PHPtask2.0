@@ -19,20 +19,34 @@ if($errorCount > 0){
 	for ($counter = 0; $counter < $countAllUsers; $counter++) {
 
 		$currentUser = $allUsers[$counter];
-
+ 
 		if ($currentUser == $email. ".json") {
 
 			$userString = file_get_contents("db/users/".$currentUser);
 			$userObject = json_decode($userString);
-			$passwordFromDB =$userObject->password;
+			$passwordfronDB = $userObject->password;
 
-			$passwordFromUser = password_verify($password, $passwordFromDB);
+			$passwordfronUser = password_verify($password, $passwordfronDB);
 
-			if($passwordFromDB == $passwordFromUser){
-				echo "in dash";
+			
+			if($passwordfronUser == $passwordfronDB){
+				$_SESSION['loggedin'] = $userObject ->id;
+				$_SESSION['fullname'] = $userObject ->first_name. " " . $userObject->last_name;
+				$_SESSION['role'] = $userObject ->designation;
+				header("Location: dashboard.php");
 
+
+				echo("in the dash");
 				die();
 			}
+
+			echo("out of the dash");
+				die();
+
+
+
+				
+			
 		}
 	}
 

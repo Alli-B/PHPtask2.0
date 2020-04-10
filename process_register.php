@@ -39,7 +39,7 @@ if($errorcount > 0){
 		'last_name' => $last_name,
 		'email' => $email,
 		'gender' => $gender,
-		'password' => password_hash($pa, PASSWORD_DEFAULT),
+		'password' => password_hash($password, PASSWORD_DEFAULT),
 		'designation' => $designation,
 	];
 
