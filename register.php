@@ -15,7 +15,7 @@ if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
     <p><strong>Welcome, Please Register</strong></p>
     <p>All Fields are required</p>
 
-  <form method="post" action="process_register.php"> <!-- Creates a form -->
+  <form method="post" action="process_register.php"> 
 <p>
     <?php  print_error();    ?>
 </p> 
@@ -33,6 +33,13 @@ if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
 
          ?>
          type="text" name="first_name" placeholder="Enter Your First Name" required /><br>
+
+         <?php
+            if(!isset($fname)){
+                echo "Can'y use special characters"; $error++;
+            }
+
+         ?>
     </p>
 
     <p>

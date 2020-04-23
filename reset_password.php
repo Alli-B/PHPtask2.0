@@ -34,6 +34,7 @@ if (!is_user_loggedin() && !is_token_set()) {
     
     <?php if(is_user_loggedin()){ ?>
     <input 
+    
         <?php
             if (is_token_set_in_session()) {
                 echo "value='" . $_SESSION['token'] . "'";

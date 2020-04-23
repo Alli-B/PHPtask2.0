@@ -23,7 +23,7 @@ $designation = $_POST['designation'] != "" ? $_POST['designation'] : $errorcount
 $gender = $_POST['gender'] != "" ? $_POST['gender'] : $errorcount++;
 
 $_SESSION['first_name'] = $first_name;
-$_SESSION['last_name'] = $last_name;
+$_SESSION['last_name'] = $last_name; 
 $_SESSION['email'] = $email;
 $_SESSION['password'] = $password;
 $_SESSION['designation'] = $designation;
@@ -41,8 +41,6 @@ if (preg_match('/[\'1234567890^£"$%&*()}{@#~?><>,|=_+¬-]/', $first_name)) {
 			header("Location: register.php");
 
 		}else{
-
-
      
  
 if($errorcount > 0){
