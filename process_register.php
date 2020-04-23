@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once('functions/users.php');
+
 // print_r($_POST);
 
 $errorcount = 0;
@@ -21,19 +23,40 @@ $designation = $_POST['designation'] != "" ? $_POST['designation'] : $errorcount
 $gender = $_POST['gender'] != "" ? $_POST['gender'] : $errorcount++;
 
 $_SESSION['first_name'] = $first_name;
+$_SESSION['last_name'] = $last_name;
+$_SESSION['email'] = $email;
+$_SESSION['password'] = $password;
+$_SESSION['designation'] = $designation;
+$_SESSION['gender'] = $gender;
+
+if (preg_match('/[\'1234567890^£"$%&*()}{@#~?><>,|=_+¬-]/', $first_name)) {
+
+      $_SESSION["fname"] = "First name cannot have numbers or special characters";
+			header("Location: register.php");
+
+		}else{
+			if (preg_match('/[\'1234567890^£"$%&*()}{@#~?><>,|=_+¬-]/', $last_name)) {
+
+      $_SESSION["lname"] = "last name cannot harve numbers or special characters";
+			header("Location: register.php");
+
+		}else{
+
+
+     
  
 if($errorcount > 0){
 	$_SESSION["error"] = 'you have '. $errorcount . 'errors in your submission';
 	header("Location: register.php?");
 
+	 
+
 }else{
 
-	$allUsers = scandir("db/users/"); 
-	$countAllUsers = count($allUsers);
+	
+	$newUserId = ($countAllUsers-1);
 
-	$newUserId = $countAllUsers-1;
-
-	$userObeject = [
+	$userObject = [
 		'id' =>$newUserId,
 		'first_name' => $first_name,
 		'last_name' => $last_name,
@@ -43,11 +66,10 @@ if($errorcount > 0){
 		'designation' => $designation,
 	];
 
-	for ($counter = 0; $counter < $countAllUsers; $counter++) {
+	$userExist = findUser($email);
+	
 
-		$currentUser = $allUsers[$counter];
-
-		if ($currentUser == $email. ".json") {
+		if (userExist) {
 
 			$_SESSION["error"] = "Registartion Failed!! User already exist ";
 			header("Location: register.php");
@@ -56,12 +78,14 @@ if($errorcount > 0){
 		}
 	}
 
-	file_put_contents("db/users/". $email . ".json",json_encode($userObeject));
+
+	saveUser($userObject);
+	
 	$_SESSION["message"] = "Thank you for a successfull registration!" . $first_name;
 	header("Location: login.php");
 
 }
-
+}
 
 
  

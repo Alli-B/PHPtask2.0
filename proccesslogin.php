@@ -31,24 +31,30 @@ if($errorCount > 0){
 			
 			if($passwordfronUser == $passwordfronDB){
 				$_SESSION['loggedin'] = $userObject ->id;
+				$_SESSION['email'] = $userObject ->email;
 				$_SESSION['fullname'] = $userObject ->first_name. " " . $userObject->last_name;
 				$_SESSION['role'] = $userObject ->designation;
-				header("Location: dashboard.php");
+				if ($_SESSION['role']  == 'Teller') {
+
+					header("Location: teller.php");
+
+					
+						die();
+					# code...
+				}else{
+					header('Location: customer_serv.php');
+				}
 
 
 				echo("in the dash");
 				die();
 			}
 
-			echo("out of the dash");
-				die();
-
-
-
-				
-			
+			$_SESSION["error"] = "Invalid email or password";
+			header("Location: login.php");
+			die();		
 		}
-	}
+	}  
 
 	$_SESSION["error"] = "Invalid email or password";
 	header("Location: login.php");

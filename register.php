@@ -1,12 +1,12 @@
+
 <?php
 
 include_once('lib/header.php');
+require_once('functions/alerts.php');
 
 if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
     header("Location: dashboard.php");
 }
-
-
 
 ?>
 
@@ -16,30 +16,31 @@ if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
     <p>All Fields are required</p>
 
   <form method="post" action="process_register.php"> <!-- Creates a form -->
-
 <p>
-    <?php 
-
-    if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
-        echo $_SESSION['error'];
-
-        session_destroy();
-    }
-
-     ?>
-</p>
+    <?php  print_error();    ?>
+</p> 
 
 
     <p>
-		<label>First Name: </label><br>
-         <input type="text" name="first_name" placeholder="Enter Your First Name" required /><br>
+        <label>First Name: </label><br>
+         <input 
+
+         <?php
+            if(isset($_SESSION['first_name'])){
+                echo "value =" . $_SESSION['first_name'];
+
+            }
+
+         ?>
+         type="text" name="first_name" placeholder="Enter Your First Name" required /><br>
     </p>
+
     <p>
         <label>Last Name: </label><br>
          <input 
          <?php
-            if(isset($_SESSION['first_name'])){
-                echo "value =" . $_SESSION['first_name'];
+            if(isset($_SESSION['last_name'])){
+                echo "value =" . $_SESSION['last_name'];
 
             }
 
@@ -49,7 +50,15 @@ if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
     </p>
     <p>
          <label>Email: </label><br>
-         <input type="email" name="email" placeholder="Enter Your Email" required required/><br>
+         <input 
+         <?php
+            if(isset($_SESSION['email'])){
+                echo "value =" . $_SESSION['email'];
+
+            }
+
+         ?>
+         type="email" name="email" placeholder="Enter Your Email" required required/><br>
     </p>
     <p>
         <label>Password: </label><br>
@@ -57,22 +66,22 @@ if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
     </p>
     <p>
         <label>Confirm Password: </label><br>
-        <input type="c_password" name="c_password" placeholder="confirm password" required /><br>
+        <input type="password" name="c_password" placeholder="confirm password" required /><br>
          <!--the above code creates a text box --> 
     </p>
  
         <label>Select your Designation: </label><br>
          <select name="designation" required> <!--  creates drop down menu -->
             <option value=" ">select one</option>
-         	<option value="Teller">Teller</option>
-         	<option value="Security">Security</option>
-         	<option value="Customer_serv">Customer service</option>
+            <option value="Teller">Teller</option>
+            <option value="Security">Security</option>
+            <option value="Customer_serv">Customer service</option>
          </select>
 
-		<p>
-		<label>Gender: </label> <br> <!-- creates radio botton -->
-		<input type="radio" name="gender" value="male" required>male<br>
-		<input type="radio" name="gender" value="female" required>female<br>
+        <p>
+        <label>Gender: </label> <br> <!-- creates radio botton -->
+        <input type="radio" name="gender" value="male" required>male<br>
+        <input type="radio" name="gender" value="female" required>female<br>
         </p>
 
          <button type="submit" name="submit">Register</button> 

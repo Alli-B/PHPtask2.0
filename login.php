@@ -1,6 +1,7 @@
 <?php 
 
 include_once('lib/header.php');
+require_once('functions/alerts.php');
 
 if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
     header("Location: dashboard.php");
@@ -10,31 +11,16 @@ if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
 ?>
 
 <h2>Login</h2>
-<?php 
 
-    if(isset($_SESSION['message']) && !empty($_SESSION['message'])){
-        echo "<span style = 'color:green '>" . $_SESSION['message'] . "</span>";
-
-        session_destroy();
-    }
-
-     ?>
+<?php print_error();?>
 </p>
  
 
   <form method="POST" action="proccesslogin.php"> <!-- Creates a form -->
-    <?php
 
-     if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
-        echo "<span style = 'color:red '>" . $_SESSION['error'] . "</span>";
-
-        session_destroy();
-    }
-
-    ?>
 
     <p>
-		<label>Email:</label>l 
+		<label>Email </label> 
         <input 
  
         <?php
